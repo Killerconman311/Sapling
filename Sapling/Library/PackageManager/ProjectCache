@@ -20,7 +20,7 @@ m_EmbeddedPackageManifests:
 m_LocalPackages:
   m_LocalFileStatus: []
 m_ProjectPath: B:/Ghub/Sapling/Sapling/Packages
-m_EditorVersion: 2022.3.44f1 (c3ae09b9f03c)
+m_EditorVersion: 2022.3.45f1 (a13dfa44d684)
 m_ResolvedPackages:
 - packageId: com.unity.cinemachine@2.10.1
   testable: 0
@@ -3689,4 +3689,4 @@ m_ResolvedPackages:
   isDeprecated: 0
   deprecationMessage: 
   fingerprint: 
-m_BuiltInPackagesHash: 74622aa8bed6a1f01bcf171663fedac871fbad9b
+m_BuiltInPackagesHash: 4bf036992e66df8542a0e2a381a825a4a2452a54
