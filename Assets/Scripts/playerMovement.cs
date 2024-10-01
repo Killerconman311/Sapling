@@ -57,6 +57,11 @@ public class playerMovement : MonoBehaviour
 
         // gotta blast
         controller.Move((cameraRelativeInput + velocity) * Time.deltaTime);
+        // Rotate the character to face the direction of movement
+        if (cameraRelativeInput != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(cameraRelativeInput), Time.deltaTime * moveSpeed);
+        }
     }
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
     {
