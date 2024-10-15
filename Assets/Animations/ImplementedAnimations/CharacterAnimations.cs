@@ -19,7 +19,7 @@ public class CharacterAnimations : MonoBehaviour
     The following are the animation states that can be used:
     idle_run
     jumpStart
-    jumpAir
+    inAir
     jumpLand
 
     The inputMagnitude is used for the blend tree in the animator and uses normalized values (0-1)
@@ -29,39 +29,47 @@ public class CharacterAnimations : MonoBehaviour
     */
 
     private Animator anim;
-    private enum MoveState {idle_run, jumpStart, jumpAir, jumpLand}
-    // Start is called before the first frame update
+    private enum MoveState { idle_run = 0, jumpStart = 1, inAir = 2, jumpLand = 3 }
+    private MoveState currentState;
+
     void Start()
     {
         anim = GetComponent<Animator>();
     }
 
-    // call this to change the animation state
-    // animationState is for the animation you want to change to
-    // inputMagnitude is for the blend tree
-    public void UpdateAnimationState( string animationState, float inputMagnitude = 0f)
+    // Call this to change the animation state
+    public void UpdateAnimationState(string animationState, float inputMagnitude = 0f)
     {
-        MoveState state;
+        MoveState newState;
+
         switch (animationState)
         {
             case "idle_run":
-                anim.SetInteger("State", (int)MoveState.idle_run); 
+                newState = MoveState.idle_run;
                 anim.SetFloat("InputMagnitude", inputMagnitude);
                 break;
             case "jumpStart":
-                anim.SetInteger("State", (int)MoveState.jumpStart);
+                newState = MoveState.jumpStart;
                 break;
-            case "jumpAir":
-                anim.SetInteger("State", (int)MoveState.jumpAir);
+            case "inAir":
+                newState = MoveState.inAir;
                 break;
             case "jumpLand":
-                anim.SetInteger("State", (int)MoveState.jumpLand);
+                newState = MoveState.jumpLand;
                 break;
-
             default:
                 Debug.LogWarning("Invalid animation state: " + animationState);
-                break;
+                return; // Exit if an invalid state is passed
         }
-        Debug.Log ("Animation State: " + animationState);
+
+        // Only change the state if it's different from the current state
+        if (newState != currentState)
+        {
+            currentState = newState;
+            anim.SetInteger("State", (int)newState);
+            Debug.Log("Animation State changed to: " + animationState);
+        }
     }
 }
+
+
