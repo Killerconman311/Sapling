@@ -10,102 +10,71 @@ public class CamTransistion : MonoBehaviour
 // also turns on pause UI.
 {
     [SerializeField] public CinemachineBrain brain;
-    private int lowPriority;
-    private int highPriority;
+    private int lowPriority = 0;
+    private int highPriority = 10;
     [SerializeField] public CinemachineVirtualCamera menuCam;
     [SerializeField] public CinemachineFreeLook playerCam;
     
-    private bool isPaused = true;
+    private bool isPaused;
     private PlayerMovement moveScript;
     private GameObject player;
     private GameObject canvasObject;
     private Canvas pauseUI;
     public float pauseDelay = 0.1f;
+    public float unpauseDelay = 0.1f;   
     public float mechanicDelay = 0.1f;
     
 
     
     // Start is called before the first frame update. Using it to grab parts of shadow and define priority for use in methods.
     private void Awake() {
+        isPaused = false;
         player = GameObject.Find("Sappy");
         moveScript = player.GetComponent<PlayerMovement>();
         canvasObject = GameObject.Find("Canvas");
         pauseUI = canvasObject.GetComponent<Canvas>();
-        pauseUI.enabled = true;
-    }
-    void Start()
-    {
-        lowPriority = 1;
-        highPriority = lowPriority + 1;
-        menuCam.Priority  = highPriority;
-        playerCam.Priority = lowPriority;
+        pauseUI.enabled = false;
+        menuCam.Priority  = lowPriority;
+        playerCam.Priority = highPriority;
     }
 
     // Update is called once per frame
     void Update()
     {
-        PauseGame();
-        CheckUI();
-        CheckMechanics();
-    }
-
-    public void PauseGame()
-    {
-         if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            isPaused = !isPaused;
+            TogglePause();
         }
-
+    }
+    private void TogglePause()
+    {
+        isPaused = !isPaused;
         if (isPaused)
         {
-            menuCam.Priority = highPriority;
-            playerCam.Priority = lowPriority;
-            return;
+            StartCoroutine(PauseTheGame());
         }
         else
         {
-            menuCam.Priority = lowPriority;
-            playerCam.Priority = highPriority;
+            StartCoroutine(UnpauseTheGame());
         }
     }
-    public void CheckUI()
-    {
-        if (isPaused)
-        {
-            // turn on pause UI
-            //Debug.Log("Pause UI go on now");
-            StartCoroutine(PauseDelay(pauseDelay));
-        }
-        else
-        {
-            pauseUI.enabled = false;
-        }
 
-        if (!isPaused)
-        {
-            pauseUI.enabled = false;
-        }
-    }
-    public void CheckMechanics()
+    private IEnumerator PauseTheGame()
     {
-        if (isPaused)
-        {
-            StartCoroutine(MechanicDelay(mechanicDelay));
-
-        }
-        else
-        {
-            moveScript.enabled = true;
-        }
-    }
-    private IEnumerator MechanicDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(mechanicDelay);
         moveScript.enabled = false;
-    }
-    private IEnumerator PauseDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
+        playerCam.Priority = lowPriority;
+        menuCam.Priority = highPriority;
+        yield return new WaitForSeconds(pauseDelay);
         pauseUI.enabled = true;
+    }
+
+    private IEnumerator UnpauseTheGame()
+    {
+        pauseUI.enabled = false;
+        playerCam.Priority = highPriority;
+        menuCam.Priority = lowPriority;
+        yield return new WaitForSeconds(unpauseDelay);
+        moveScript.enabled = true;
     }
 }
