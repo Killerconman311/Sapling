@@ -2,63 +2,79 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class CamTransistion : MonoBehaviour
-// Script which turns off the shadow and causes it to reappear if the player touches a diamond.
-// Then the shadow is always front and center of camera.
+// Script that is used to transition between the player camera and the menu camera.
+// also turns off player movement and camera control when paused.
+// also turns on pause UI.
 {
     [SerializeField] public CinemachineBrain brain;
-    private int lowPriority;
-    private int highPriority;
-    [SerializeField] public CinemachineFreeLook menuCam;
+    private int lowPriority = 0;
+    private int highPriority = 10;
+    [SerializeField] public CinemachineVirtualCamera menuCam;
     [SerializeField] public CinemachineFreeLook playerCam;
     
-    private bool isPaused = true;
+    private bool isPaused;
+    private PlayerMovement moveScript;
+    private GameObject player;
+    private GameObject canvasObject;
+    private Canvas pauseUI;
+    public float pauseDelay = 0.1f;
+    public float unpauseDelay = 0.1f;   
+    public float mechanicDelay = 0.1f;
     
 
     
     // Start is called before the first frame update. Using it to grab parts of shadow and define priority for use in methods.
-    void Start()
-    {
-
-        lowPriority = 1;
-        highPriority = lowPriority + 1;
-        menuCam.Priority  = highPriority;
-        playerCam.Priority = lowPriority;
-
+    private void Awake() {
+        isPaused = false;
+        player = GameObject.Find("Sappy");
+        moveScript = player.GetComponent<PlayerMovement>();
+        canvasObject = GameObject.Find("Canvas");
+        pauseUI = canvasObject.GetComponent<Canvas>();
+        pauseUI.enabled = false;
+        menuCam.Priority  = lowPriority;
+        playerCam.Priority = highPriority;
     }
 
     // Update is called once per frame
     void Update()
     {
-     
-         if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            isPaused = !isPaused;
+            TogglePause();
         }
-
+    }
+    private void TogglePause()
+    {
+        isPaused = !isPaused;
         if (isPaused)
         {
-            menuCam.Priority = highPriority;
-            playerCam.Priority = lowPriority;
-            return;
+            StartCoroutine(PauseTheGame());
         }
         else
         {
-            menuCam.Priority = lowPriority;
-            playerCam.Priority = highPriority;
+            StartCoroutine(UnpauseTheGame());
         }
-
     }
-    
-    // Method that is used to check if the player has collected "the light at the end of the tunnel"
-    private void OnTriggerEnter2D(Collider2D collision) 
+
+    private IEnumerator PauseTheGame()
     {
-        if (collision.gameObject.CompareTag("Void"))
-        {
-            playerCam.Priority = lowPriority;
-            menuCam.Priority = highPriority;
-        }
+        yield return new WaitForSeconds(mechanicDelay);
+        moveScript.enabled = false;
+        playerCam.Priority = lowPriority;
+        menuCam.Priority = highPriority;
+        yield return new WaitForSeconds(pauseDelay);
+        pauseUI.enabled = true;
     }
 
+    private IEnumerator UnpauseTheGame()
+    {
+        pauseUI.enabled = false;
+        playerCam.Priority = highPriority;
+        menuCam.Priority = lowPriority;
+        yield return new WaitForSeconds(unpauseDelay);
+        moveScript.enabled = true;
+    }
 }
