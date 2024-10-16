@@ -1,94 +1,149 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Components")]
+    private Rigidbody rb;
+    private CapsuleCollider coll;
+    private CharacterAnimations animHandler;
+    public float heightTest = 0.1f;
 
-    public float moveSpeed = 5f; // Speed of the player
-    public float jumpForce = 5f; // Jump force of the player
-    public float gravity = -5f; // Gravity of the player
-    public float horizontalInput; // Input for horizontal movement  
-    public float verticalInput; // Input for vertical movement  
-    Vector3 playerInput; // Vector3 for player input
-    Vector3 velocity; // Velocity for vertical movement
+    [Header("Movement Variables")]
+    public float moveSpeed = 5f; 
+    public float jumpForce = 5f; 
+    public float gravity = -9.81f;  
+    public LayerMask groundLayer; 
 
-
-    private CharacterController controller; //variable for the character controller
+    private Vector3 movementInput;
+    private Vector3 cameraRelativeInput;
+    private bool isGrounded;
+    private bool isJumping;
+    private float horizontalInput;
+    private float verticalInput;
 
     void Start()
     {
-        // Initialize the controller
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        coll = GetComponent<CapsuleCollider>();
+        animHandler = GetComponentInChildren<CharacterAnimations>();
+        isJumping = false;
+        rb.freezeRotation = true;
     }
 
     void Update()
     {
-        // Get input from WASD 
+        Debug.Log("isGrounded: " + isGrounded);
+    Debug.Log("isJumping: " + isJumping);
+    Debug.Log("rb.velocity.y: " + rb.velocity.y);
+        GetInput();
+        CheckGroundStatus();
+
+        if (isGrounded && Input.GetButtonDown("Jump") && !isJumping)
+        {
+            Jump();
+            animHandler.UpdateAnimationState("jumpStart");
+            isJumping = true;
+        }
+        else if (!isGrounded && isJumping)
+        {
+            animHandler.UpdateAnimationState("inAir");
+        }
+        // check if player has recently landed after being in the air
+        else if (isGrounded && rb.velocity.y == 0f && isJumping)
+        {
+            animHandler.UpdateAnimationState("jumpLand");
+            StartCoroutine(Delay(0.1f));
+            isJumping = false;
+        }
+
+        HandleAnimations();
+    }
+
+    private IEnumerator Delay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+    }
+
+    void FixedUpdate()
+    {
+        MovePlayer();
+        ApplyGravity();
+    }
+
+    private void GetInput()
+    {
+        // Get input from WASD/Arrow keys
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
-        // movement direction
-        playerInput.x = horizontalInput;
-        playerInput.z = verticalInput;
+        // Create movement vector based on input
+        movementInput = new Vector3(horizontalInput, 0f, verticalInput);
+        cameraRelativeInput = ConvertToCameraSpace(movementInput) * moveSpeed;
+    }
 
-        Vector3 cameraRelativeInput = ConvertToCameraSpace(playerInput) * moveSpeed;
+    private void MovePlayer()
+    {
+        // Move player in the direction of input
+        Vector3 movement = cameraRelativeInput * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + movement);
 
-
-        if (controller.isGrounded)
-        {
-            // Reset the vertical velocity when grounded
-            velocity.y = 0f;
-
-            // Check for spacebar input to jump
-            if (Input.GetButtonDown("Jump"))
-            {
-                velocity.y = jumpForce;
-            }
-            else
-            {
-                // Reset the vertical velocity when grounded and not jumping
-                velocity.y = 0f;
-            }
-        }
-        // Apply gravity to the velocity
-        velocity.y += gravity * Time.deltaTime;
-
-        // gotta blast
-        controller.Move((cameraRelativeInput + velocity) * Time.deltaTime);
-        // Rotate the character to face the direction of movement
+        // Rotate the player to face movement direction
         if (cameraRelativeInput != Vector3.zero)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(cameraRelativeInput), Time.deltaTime * moveSpeed);
+            Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeInput);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * moveSpeed);
         }
     }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void ApplyGravity()
+    {
+        if (!isGrounded)
+        {
+            rb.AddForce(Vector3.down * Mathf.Abs(gravity), ForceMode.Acceleration);
+        }
+    }
+
+    private void CheckGroundStatus()
+    {
+        // Check if the player is grounded
+        RaycastHit hit;
+        isGrounded = Physics.SphereCast(coll.bounds.center, coll.radius, Vector3.down, out hit, heightTest, groundLayer);
+        Debug.DrawRay(coll.bounds.center, Vector3.down * heightTest, Color.red);
+        Debug.Log("ground status: " + isGrounded);
+    }
+
+    private void HandleAnimations()
+    {
+        // Only update idle_run animation if the player is grounded and not jumping
+        if (isGrounded && !isJumping)
+        {
+            float inputMagnitude = Mathf.Clamp(cameraRelativeInput.magnitude, 0f, 0.5f);
+            animHandler.UpdateAnimationState("idle_run", inputMagnitude);
+        }
+    }
+
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
     {
-        //store Y value of the original vector to rotate
-        float currentYValue = vectorToRotate.y;
-        // Get the camera's forward and right vectors
+        // Get camera directions
         Vector3 forward = Camera.main.transform.forward;
         Vector3 right = Camera.main.transform.right;
 
-        // Project the vectors onto the XZ plane
+        // Flatten camera directions on XZ plane
         forward.y = 0f;
         right.y = 0f;
 
-        // Normalize the vectors
+        // Normalize vectors
         forward.Normalize();
         right.Normalize();
 
-        // rotate the x and y vectortorotate valus to camera space
-        Vector3 fowardZproduct = vectorToRotate.z * forward;
-        Vector3 rightXproduct = vectorToRotate.x * right;
-
-        // the sum of the two vectors is the vector in camera space
-        Vector3 vectorRotatedToCameraSpace = fowardZproduct + rightXproduct;
-        vectorRotatedToCameraSpace.y = currentYValue;
-        return vectorRotatedToCameraSpace;
-
+        // Calculate camera-relative movement
+        return vectorToRotate.z * forward + vectorToRotate.x * right;
     }
-
 }
-
