@@ -7,6 +7,7 @@ public class SunspotCollisions : MonoBehaviour
     private bool playerIsColliding = false;
     private GameObject player;
     private float timer = 0;
+    public int level;
     public float chargeTime;
 
     // Start is called before the first frame update
@@ -42,6 +43,6 @@ public class SunspotCollisions : MonoBehaviour
         }
     }
     private void UnlockAbility(){
-        PlayerAbilities.abilityLevel = 1;
+        PlayerAbilities.abilityLevel = level;
     }
 }
