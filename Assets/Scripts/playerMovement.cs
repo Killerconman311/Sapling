@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             animHandler.UpdateAnimationState("inAir");
         }
         // check if player has recently landed after being in the air
-        else if (isGrounded && rb.velocity.y == 0f && isJumping)
+        else if (isGrounded && rb.velocity.y == 0f && isJumping) // this is probably needing a logic fix to make animations work correctly.
         {
             animHandler.UpdateAnimationState("jumpLand");
             StartCoroutine(Delay(0.1f));
@@ -58,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         HandleAnimations();
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            animHandler.UpdateAnimationState("idle_run", 0f);
+        }
     }
 
     private IEnumerator Delay(float delay)
