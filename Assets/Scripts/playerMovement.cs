@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float heightTest = 0.1f;
 
     [Header("Movement Variables")]
-    public float moveSpeed = 5f; 
-    public float jumpForce = 5f; 
+    float moveSpeed = 10f; 
+    float jumpForce = 15f; 
     public float gravity = -9.81f;  
     public LayerMask groundLayer; 
 
@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Debug.Log("isGrounded: " + isGrounded);
-    Debug.Log("isJumping: " + isJumping);
-    Debug.Log("rb.velocity.y: " + rb.velocity.y);
+        Debug.Log("isJumping: " + isJumping);
+        Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
         CheckGroundStatus();
 
@@ -59,9 +59,17 @@ public class PlayerMovement : MonoBehaviour
 
         HandleAnimations();
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            moveSpeed = 20f;
+            jumpForce = 25f;
+            Debug.Log("MoveSpeed: "+moveSpeed);
+            Debug.Log("JumpForce: "+jumpForce);
             animHandler.UpdateAnimationState("idle_run", 0f);
+        }
+        if(Input.GetKeyUp(KeyCode.LeftShift)){
+            moveSpeed = 10f;
+            jumpForce = 15f;
         }
     }
 
@@ -85,6 +93,7 @@ public class PlayerMovement : MonoBehaviour
         // Create movement vector based on input
         movementInput = new Vector3(horizontalInput, 0f, verticalInput);
         cameraRelativeInput = ConvertToCameraSpace(movementInput) * moveSpeed;
+        Debug.Log("CameraRelative: "+cameraRelativeInput);
     }
 
     private void MovePlayer()
