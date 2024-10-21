@@ -27,7 +27,7 @@ public class SunspotCollisions : MonoBehaviour
             UnlockAbility();
         }
         if(!playerIsColliding){
-            timer -= Time.deltaTime;
+            timer = 0f;
         }
     }
     void OnTriggerEnter(Collider other){
