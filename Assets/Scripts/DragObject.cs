@@ -6,7 +6,7 @@ public class DragObject : MonoBehaviour
 {
     private Vector3 mouseOffset;
     private float mouseZCoord;
-    public float zMultiplier = 1f;
+    //public float zMultiplier = 1f;
     bool isColliding = false;
     bool mouseDragging = false;
     void OnMouseDown(){
@@ -31,7 +31,7 @@ public class DragObject : MonoBehaviour
         mouseDragging = true;
         if (!isColliding)
         {
-            transform.position = GetMouseWorldPos() + mouseOffset + new Vector3(0,0,zMultiplier);
+            transform.position = GetMouseWorldPos() + mouseOffset; // + new Vector3(0,0,zMultiplier);
         }
         
     }
