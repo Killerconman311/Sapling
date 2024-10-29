@@ -9,8 +9,7 @@ public class MenuController : MonoBehaviour
     public Transform spawnPoint;
     public Button playButton;
     public Button startButton;
-    private Canvas pauseUI;
-    private GameObject canvasObject;
+    public GameObject pauseUI;
     private PlayerMovement moveScript;
 
     public 
@@ -34,13 +33,10 @@ public class MenuController : MonoBehaviour
         playButton.gameObject.SetActive(true);
         player.position = spawnPoint.position;
         player.eulerAngles = spawnPoint.eulerAngles;
-        canvasObject = GameObject.Find("Pause Canvas");
-        pauseUI = canvasObject.GetComponent<Canvas>();
-        pauseUI.enabled = false;
+        pauseUI.SetActive(false);
     }
     public void Unpause(){
-        pauseUI.enabled = false;
-
+        pauseUI.SetActive(false);
     }
     public void QuitGame(){
         Application.Quit();

@@ -13,14 +13,11 @@ public class CamTransistion : MonoBehaviour
     private int lowPriority = 0;
     private int highPriority = 10;
     [SerializeField] private CinemachineVirtualCamera menuCam;
-    [SerializeField] private CinemachineFreeLook playerCam;
-    private Canvas startUI;
-    private Canvas pauseUI;
-    
+    [SerializeField] private CinemachineFreeLook playerCam;    
     private bool isPaused;
     private PlayerMovement moveScript;
     private GameObject player;
-    private GameObject canvasObject;
+    public GameObject pauseUI;
     public float pauseDelay = 0.1f;
     public float unpauseDelay = 0.1f;   
     public float mechanicDelay = 0.1f;
@@ -33,9 +30,7 @@ public class CamTransistion : MonoBehaviour
         isPaused = true;
         player = transform.parent.gameObject;
         moveScript = player.GetComponent<PlayerMovement>();
-        canvasObject = GameObject.Find("Pause Canvas");
-        pauseUI = canvasObject.GetComponent<Canvas>();
-        pauseUI.enabled = true;
+        pauseUI.SetActive(true);
         menuCam.Priority  = highPriority;
         playerCam.Priority = lowPriority;
     }
@@ -43,17 +38,17 @@ public class CamTransistion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Heo");
+        //Debug.Log("Heo");
         if (Input.GetKeyDown(KeyCode.Q)) 
         {
-            Debug.Log("Hello");
+            //Debug.Log("Hello");
             TogglePause();
         }
     }
     public void TogglePause()
     {
         isPaused = !isPaused;
-        Debug.Log("Paused: "+isPaused);
+        //Debug.Log("Paused: "+isPaused);
         if (isPaused)
         {
             StartCoroutine(PauseTheGame());
@@ -71,12 +66,12 @@ public class CamTransistion : MonoBehaviour
         playerCam.Priority = lowPriority;
         menuCam.Priority = highPriority;
         yield return new WaitForSeconds(pauseDelay);
-        pauseUI.enabled = true;
+        pauseUI.SetActive(true);
     }
 
     private IEnumerator UnpauseTheGame()
     {
-        pauseUI.enabled = false;
+        pauseUI.SetActive(false);
         playerCam.Priority = highPriority;
         menuCam.Priority = lowPriority;
         yield return new WaitForSeconds(unpauseDelay);

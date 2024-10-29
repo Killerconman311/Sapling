@@ -33,9 +33,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("isGrounded: " + isGrounded);
-        Debug.Log("isJumping: " + isJumping);
-        Debug.Log("rb.velocity.y: " + rb.velocity.y);
+        //Debug.Log("isGrounded: " + isGrounded);
+        //Debug.Log("isJumping: " + isJumping);
+        //Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
         CheckGroundStatus();
 
@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
         // Create movement vector based on input
         movementInput = new Vector3(horizontalInput, 0f, verticalInput);
         cameraRelativeInput = ConvertToCameraSpace(movementInput) * moveSpeed;
-        Debug.Log("CameraRelative: "+cameraRelativeInput);
+        //Debug.Log("CameraRelative: "+cameraRelativeInput);
     }
 
     private void MovePlayer()
@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         isGrounded = Physics.SphereCast(coll.bounds.center, coll.radius, Vector3.down, out hit, heightTest, groundLayer);
         Debug.DrawRay(coll.bounds.center, Vector3.down * heightTest, Color.red);
-        Debug.Log("ground status: " + isGrounded);
+        //Debug.Log("ground status: " + isGrounded);
     }
 
     private void HandleAnimations()
