@@ -30,14 +30,14 @@ public class CamTransistion : MonoBehaviour
     // Start is called before the first frame update. Using it to grab parts of shadow and define priority for use in methods.
     private void Awake() {
         Debug.Log("Please");
-        isPaused = false;
+        isPaused = true;
         player = transform.parent.gameObject;
         moveScript = player.GetComponent<PlayerMovement>();
         canvasObject = GameObject.Find("Pause Canvas");
         pauseUI = canvasObject.GetComponent<Canvas>();
-        pauseUI.enabled = false;
-        menuCam.Priority  = lowPriority;
-        playerCam.Priority = highPriority;
+        pauseUI.enabled = true;
+        menuCam.Priority  = highPriority;
+        playerCam.Priority = lowPriority;
     }
 
     // Update is called once per frame
@@ -50,7 +50,7 @@ public class CamTransistion : MonoBehaviour
             TogglePause();
         }
     }
-    private void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
         Debug.Log("Paused: "+isPaused);
