@@ -10,10 +10,11 @@ public class CamTransistion : MonoBehaviour
 // also turns on pause UI.
 {
     [SerializeField] public CinemachineBrain brain;
-    private int lowPriority = 0;
+    private int lowPriority = 5;
     private int highPriority = 10;
+    [SerializeField] private CinemachineVirtualCamera startCam;    
     [SerializeField] private CinemachineVirtualCamera menuCam;
-    [SerializeField] private CinemachineFreeLook playerCam;    
+    [SerializeField] private CinemachineFreeLook playerCam;
     private bool isPaused;
     private PlayerMovement moveScript;
     private GameObject player;
@@ -31,6 +32,7 @@ public class CamTransistion : MonoBehaviour
         player = transform.parent.gameObject;
         moveScript = player.GetComponent<PlayerMovement>();
         pauseUI.SetActive(true);
+        startCam.Priority = 20;
         menuCam.Priority  = highPriority;
         playerCam.Priority = lowPriority;
     }
@@ -76,5 +78,8 @@ public class CamTransistion : MonoBehaviour
         menuCam.Priority = lowPriority;
         yield return new WaitForSeconds(unpauseDelay);
         moveScript.enabled = true;
+    }
+    public void StartGame(){
+        startCam.Priority = 0;
     }
 }
