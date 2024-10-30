@@ -14,7 +14,8 @@ public class BugPatrol : MonoBehaviour
     
     public TargetPair[] targetPairs;
     public int targetIndex = 0; // Index to choose which pair of targets to move between
-    public float speed = 5f; // Movement speed
+    public float moveSpeed = 5f; // Movement speed
+    public float lookSpeed = 5f; // Movement speed
 
     private Transform currentTarget;
     private float timer = 5;
@@ -34,7 +35,7 @@ public class BugPatrol : MonoBehaviour
         if (targetIndex >= targetPairs.Length) targetIndex = 0; // Wrap index if out of range
 
         // Move towards the current target
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, moveSpeed * Time.deltaTime);
 
         // Check if reached the current target
         if (transform.position == currentTarget.position)
@@ -54,7 +55,7 @@ public class BugPatrol : MonoBehaviour
         // Smoothly rotate towards the current target
         Vector3 direction = currentTarget.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
     }
 
     void SetCurrentTarget(Transform newTarget)

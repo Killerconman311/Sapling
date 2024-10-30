@@ -10,6 +10,7 @@ public class MenuController : MonoBehaviour
     public Button playButton;
     public Button startButton;
     public GameObject pauseUI;
+    public GameObject dialogue;
     private PlayerMovement moveScript;
 
     public 
@@ -24,7 +25,9 @@ public class MenuController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(pauseUI.activeSelf){
+            dialogue.SetActive(false);
+        }
     }
 
     public void StartGame(){

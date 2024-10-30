@@ -29,7 +29,7 @@ public class CamTransistion : MonoBehaviour
     private void Awake() {
         Debug.Log("Please");
         isPaused = true;
-        player = transform.parent.gameObject;
+        player = GameObject.Find("Sappy");
         moveScript = player.GetComponent<PlayerMovement>();
         pauseUI.SetActive(true);
         startCam.Priority = 20;

@@ -6,9 +6,10 @@ public class SunspotCollisions : MonoBehaviour
 {
     private bool playerIsColliding = false;
     private GameObject player;
+    private PlayerAbilities playerAbilities;
     private float timer = 0;
     public int level;
-    public float chargeTime;
+    public float chargeTime = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +25,9 @@ public class SunspotCollisions : MonoBehaviour
             Debug.Log(timer);
         }
         if(timer >= chargeTime){
-            UnlockAbility();
+            if(playerAbilities != null){
+                playerAbilities.SetAbilityLevel(level);
+            }
         }
         if(!playerIsColliding){
             timer = 0f;
@@ -34,15 +37,14 @@ public class SunspotCollisions : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             playerIsColliding = true;
             player = other.gameObject;
+            playerAbilities = player.GetComponent<PlayerAbilities>();
         }
     }
     void OnTriggerExit(Collider other){
         if(other.gameObject.CompareTag("Player")){
             playerIsColliding = false;
             player = null;
+            playerAbilities = null;
         }
-    }
-    private void UnlockAbility(){
-        PlayerAbilities.abilityLevel = level;
     }
 }

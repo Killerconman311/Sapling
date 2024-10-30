@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    public static int abilityLevel;
+    private int abilityLevel;
+    private int previousLevel;
+    public static bool canGlide;
+    public static bool canGrab;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +17,27 @@ public class PlayerAbilities : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(abilityLevel);
+        if(previousLevel!=abilityLevel){
+            SetAbilities();
+        }
     }
+    public void SetAbilityLevel(int level){
+        previousLevel = abilityLevel;
+        abilityLevel = level;
+    }
+    public void SetAbilities(){
+        switch(abilityLevel){
+            case 0: {
+                canGlide = false;
+                canGrab = false;
+            }break;
+            case 1: {
+                canGlide = true;
+            }break;
+            case 2: {
+                canGrab = false;
+            }break;
+        }
+    }
+
 }

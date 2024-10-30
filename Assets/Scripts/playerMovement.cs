@@ -8,11 +8,12 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider coll;
     private CharacterAnimations animHandler;
     public float heightTest = 0.1f;
+    public GameObject glider;
 
     [Header("Movement Variables")]
     float moveSpeed = 10f; 
     float jumpForce = 15f; 
-    public float gravity = -9.81f;  
+    public static float playerGravity;  
     public LayerMask groundLayer; 
 
     private Vector3 movementInput;
@@ -21,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping;
     private float horizontalInput;
     private float verticalInput;
+
+    private float timeInAir; 
 
     void Start()
     {
@@ -34,16 +37,17 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Debug.Log("isGrounded: " + isGrounded);
-        //Debug.Log("isJumping: " + isJumping);
         //Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
         CheckGroundStatus();
-
-        if (isGrounded && Input.GetButtonDown("Jump") && !isJumping)
+        if (Input.GetButtonDown("Jump"))
         {
-            Jump();
-            animHandler.UpdateAnimationState("jumpStart");
-            isJumping = true;
+            if (isGrounded){
+                playerGravity = -9.81f;
+                Jump(jumpForce);
+                animHandler.UpdateAnimationState("jumpStart");
+            }
+            
         }
         else if (!isGrounded && isJumping)
         {
@@ -54,7 +58,25 @@ public class PlayerMovement : MonoBehaviour
         {
             animHandler.UpdateAnimationState("jumpLand");
             StartCoroutine(Delay(0.1f));
-            isJumping = false;
+            //isJumping = false;
+        }
+        if (isJumping && PlayerAbilities.canGlide){
+            //Debug.Log("Jumping: " +isJumping);
+            timeInAir += Time.deltaTime;
+            //Debug.Log(Input.GetButton("Jump"));
+            if(timeInAir >= 0.7f && Input.GetButton("Jump")){
+                //Debug.Log("Gliding");
+                glider.SetActive(true);
+                rb.drag = 5f;
+                //Debug.Log("Gravity");
+            }else{
+                glider.SetActive(false);
+                rb.drag = 0f;
+            }
+        }
+        if(isGrounded){
+            glider.SetActive(false);
+            timeInAir = 0f;
         }
 
         HandleAnimations();
@@ -63,8 +85,6 @@ public class PlayerMovement : MonoBehaviour
         {
             moveSpeed = 20f;
             jumpForce = 25f;
-            Debug.Log("MoveSpeed: "+moveSpeed);
-            Debug.Log("JumpForce: "+jumpForce);
             animHandler.UpdateAnimationState("idle_run", 0f);
         }
         if(Input.GetKeyUp(KeyCode.LeftShift)){
@@ -110,17 +130,20 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Jump(float force)
     {
+        Debug.Log("isJumping: " + isJumping);
+        isJumping = true;
+        Debug.Log("isJumping: " + isJumping);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * force, ForceMode.Impulse);
     }
 
-    private void ApplyGravity()
+    void ApplyGravity()
     {
         if (!isGrounded)
         {
-            rb.AddForce(Vector3.down * Mathf.Abs(gravity), ForceMode.Acceleration);
+            rb.AddForce(Vector3.up * playerGravity, ForceMode.Acceleration);
         }
     }
 
