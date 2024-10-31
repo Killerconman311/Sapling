@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 cameraRelativeInput;
     private bool isGrounded;
     private bool isJumping;
+    bool landed;
     private float horizontalInput;
     private float verticalInput;
 
@@ -40,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
         CheckGroundStatus();
+        if (landed){
+            isJumping = false;
+        }
         if (Input.GetButtonDown("Jump"))
         {
             if (isGrounded){
@@ -58,8 +62,12 @@ public class PlayerMovement : MonoBehaviour
         {
             animHandler.UpdateAnimationState("jumpLand");
             StartCoroutine(Delay(0.1f));
+            landed = true;
             //isJumping = false;
+        }else{
+            landed = false;
         }
+        
         if (isJumping && PlayerAbilities.canGlide){
             //Debug.Log("Jumping: " +isJumping);
             timeInAir += Time.deltaTime;
