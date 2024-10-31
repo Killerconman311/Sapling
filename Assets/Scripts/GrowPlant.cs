@@ -16,11 +16,13 @@ public class GrowPlant : MonoBehaviour
 
     private GameObject seed;
     public GameObject glowController;
+    private AudioSource audioSource;
+    private bool soundPlayed = false;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,11 @@ public class GrowPlant : MonoBehaviour
         }
     }
     public void Grow(){
+        if (!soundPlayed)
+            {
+                audioSource.PlayOneShot(audioSource.clip);
+                soundPlayed = true;
+            }
         plant.transform.localScale = Vector3.Lerp (plant.transform.localScale, newScale, growSpeed * Time.deltaTime);
         plant.transform.localPosition = Vector3.Lerp (plant.transform.localPosition, newPosition, growSpeed * Time.deltaTime);
         plant.transform.eulerAngles = Vector3.Lerp (plant.transform.eulerAngles, newRotation, growSpeed * Time.deltaTime);
