@@ -18,19 +18,28 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 movementInput;
     private Vector3 cameraRelativeInput;
+
+    [SerializeField]
+    private float jumpButtonGracePeriod;
+    private float? lastGroundedTime;
+    private float? jumpButtonPressedTime;
     private bool isGrounded;
+    private bool isMoving;
+    private bool isFalling;
     private bool isJumping;
     bool landed;
     private float horizontalInput;
     private float verticalInput;
 
     private float timeInAir; 
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<CapsuleCollider>();
         animHandler = GetComponentInChildren<CharacterAnimations>();
+        animator = GetComponentInChildren<Animator>();
         isJumping = false;
         rb.freezeRotation = true;
     }
@@ -40,65 +49,78 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("isGrounded: " + isGrounded);
         //Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
+        if(cameraRelativeInput.magnitude > 0){
+            MovePlayer();
+        }else{
+            animator.SetBool("isMoving", false);
+        }
+        
         CheckGroundStatus();
-        if (landed){
-            isJumping = false;
+        if (isGrounded)
+        {
+            lastGroundedTime = Time.time;
         }
         if (Input.GetButtonDown("Jump"))
         {
-            if (isGrounded){
+            jumpButtonPressedTime = Time.time;
+        }
+        if (Time.time - lastGroundedTime <= jumpButtonGracePeriod)
+        {
+            animator.SetBool("isGrounded", true);
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
+            isJumping = false;
+            animator.SetBool("isFalling", false);
+            isFalling = false;
+            
+            if (Time.time - jumpButtonPressedTime <= jumpButtonGracePeriod)
+            {
                 playerGravity = -9.81f;
                 Jump(jumpForce);
-                animHandler.UpdateAnimationState("jumpStart");
+                animator.SetBool("isJumping", true);
+                isJumping = true;
+                jumpButtonPressedTime = null;
+                lastGroundedTime = null;
             }
-            
         }
-        else if (!isGrounded && isJumping)
+        else
         {
-            animHandler.UpdateAnimationState("inAir");
+            animator.SetBool("isGrounded", false);
+            isGrounded = false;
+
+            if ((isJumping && rb.velocity.y < 0) || rb.velocity.y < -2)
+            {
+                animator.SetBool("isFalling", true);
+                isFalling = true;
+            }
         }
-        // check if player has recently landed after being in the air
-        else if (isGrounded && rb.velocity.y == 0f && isJumping) // this is probably needing a logic fix to make animations work correctly.
-        {
-            animHandler.UpdateAnimationState("jumpLand");
-            StartCoroutine(Delay(0.1f));
-            landed = true;
-            //isJumping = false;
-        }else{
-            landed = false;
-        }
-        
-        if (isJumping && PlayerAbilities.canGlide){
-            //Debug.Log("Jumping: " +isJumping);
-            timeInAir += Time.deltaTime;
-            //Debug.Log(Input.GetButton("Jump"));
-            if(timeInAir >= 0.7f && Input.GetButton("Jump")){
-                //Debug.Log("Gliding");
+        if(isFalling && PlayerAbilities.canGlide){
+            if(Input.GetButton("Jump")){
                 glider.SetActive(true);
                 rb.drag = 5f;
-                //Debug.Log("Gravity");
             }else{
                 glider.SetActive(false);
                 rb.drag = 0f;
             }
         }
+        
         if(isGrounded){
             glider.SetActive(false);
             timeInAir = 0f;
         }
 
-        HandleAnimations();
+        
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             moveSpeed = 20f;
             jumpForce = 25f;
-            animHandler.UpdateAnimationState("idle_run", 0f);
         }
         if(Input.GetKeyUp(KeyCode.LeftShift)){
             moveSpeed = 10f;
             jumpForce = 15f;
         }
+        //HandleAnimations();
     }
 
     private IEnumerator Delay(float delay)
@@ -108,12 +130,23 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        MovePlayer();
         ApplyGravity();
     }
 
     private void GetInput()
     {
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+
+        Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        
+        if (!Input.GetKey(KeyCode.LeftShift) || !Input.GetKey(KeyCode.RightShift))
+        {
+            inputMagnitude /= 2;
+        }
+
+        animator.SetFloat("inputMagnitude", inputMagnitude, 0.05f, Time.deltaTime);
         // Get input from WASD/Arrow keys
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -121,28 +154,30 @@ public class PlayerMovement : MonoBehaviour
         // Create movement vector based on input
         movementInput = new Vector3(horizontalInput, 0f, verticalInput);
         cameraRelativeInput = ConvertToCameraSpace(movementInput) * moveSpeed;
-        //Debug.Log("CameraRelative: "+cameraRelativeInput);
     }
 
     private void MovePlayer()
     {
+        animator.SetBool("isMoving", true);
         // Move player in the direction of input
-        Vector3 movement = cameraRelativeInput * Time.fixedDeltaTime;
+        Vector3 movement = cameraRelativeInput * Time.deltaTime;
         rb.MovePosition(rb.position + movement);
-
         // Rotate the player to face movement direction
         if (cameraRelativeInput != Vector3.zero)
         {
+            animator.SetBool("isMoving", true);
+
             Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeInput);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.fixedDeltaTime * moveSpeed);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime * moveSpeed);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
         }
     }
 
     public void Jump(float force)
     {
-        Debug.Log("isJumping: " + isJumping);
-        isJumping = true;
-        Debug.Log("isJumping: " + isJumping);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(Vector3.up * force, ForceMode.Impulse);
     }
@@ -167,7 +202,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAnimations()
     {
         // Only update idle_run animation if the player is grounded and not jumping
-        if (isGrounded && !isJumping)
+        if (isMoving && !isJumping)
         {
             float inputMagnitude = Mathf.Clamp(cameraRelativeInput.magnitude, 0f, 0.5f);
             animHandler.UpdateAnimationState("idle_run", inputMagnitude);
