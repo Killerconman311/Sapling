@@ -10,10 +10,15 @@ public class SunspotCollisions : MonoBehaviour
     private float timer = 0;
     public int level;
     public float chargeTime = 3f;
-
     public ObjectGlow objectGlow;
-
+    public SkinnedMeshRenderer playerBody;
+    public SkinnedMeshRenderer playerRHand;
+    public SkinnedMeshRenderer playerLHand;
+    public SkinnedMeshRenderer playerLeaf;
+    public SkinnedMeshRenderer playerFlowerStem;
+    public SkinnedMeshRenderer playerBulb;
     public SkinnedMeshRenderer[] playerMeshes;
+    private bool leveledUp = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +29,17 @@ public class SunspotCollisions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerIsColliding){
+        Debug.Log("Leveled Up: "+leveledUp);
+        if(leveledUp){
+            StopCoroutine(LevelUpEffect(0.5f, 0.25f));
+        }
+        if(playerIsColliding && !leveledUp){
             timer += Time.deltaTime;
             Debug.Log(timer);
         }
         if(timer >= chargeTime){
             if(playerAbilities != null){
+                leveledUp = true;
                 playerAbilities.SetAbilityLevel(level);
                 StopCoroutine(LevelUpEffect(0.5f, 0.25f));
             }
@@ -37,31 +47,43 @@ public class SunspotCollisions : MonoBehaviour
         if(!playerIsColliding){
             timer = 0f;
         }
+        
     }
     IEnumerator LevelUpEffect( float oscilationRate, float glowSpeed )
     {
-        while(playerIsColliding){
-            Debug.Log("Level Up Started");
+        while(playerIsColliding && !leveledUp){
+            //Debug.Log("Level Up Started");
             foreach (SkinnedMeshRenderer mesh in playerMeshes)
             {
-                objectGlow.EnableGlow(mesh.material, glowSpeed);
-                yield return null;    
+                objectGlow.SetGlow(mesh.sharedMaterial, -40f);
             }
+                // objectGlow.SetGlow(playerBody.material, -40f);
+                // objectGlow.SetGlow(playerLeaf.material, -40f);
+                // objectGlow.SetGlow(playerLHand.material, -40f);
+                // objectGlow.SetGlow(playerRHand.material, -40f);
             yield return new WaitForSeconds( oscilationRate );
             foreach (SkinnedMeshRenderer mesh in playerMeshes)
             {
-                objectGlow.DisableGlow(mesh.material, glowSpeed);
-                yield return null;    
+                objectGlow.SetGlow(mesh.sharedMaterial, -0.5f);
             }
+                // objectGlow.SetGlow(playerBody.material, -0.5f);
+                // objectGlow.SetGlow(playerLeaf.material, -0.5f);
+                // objectGlow.SetGlow(playerLHand.material, -0.5f);
+                // objectGlow.SetGlow(playerRHand.material, -0.5f);
             yield return new WaitForSeconds( oscilationRate );
         }
-        Debug.Log("Level Up Ended");
+        //Debug.Log("Level Up Ended");
     }
     void OnTriggerEnter(Collider other){
         if(other.gameObject.CompareTag("Player")){
             playerIsColliding = true;
             playerAbilities = player.GetComponent<PlayerAbilities>();
-            StartCoroutine(LevelUpEffect(0.25f, 0.25f));
+            if(playerAbilities.abilityLevel != level){
+                leveledUp = false;
+            }
+            if(!leveledUp){
+                StartCoroutine(LevelUpEffect(0.5f, 0.25f));
+            }
         }
     }
     void OnTriggerExit(Collider other){
@@ -70,9 +92,12 @@ public class SunspotCollisions : MonoBehaviour
             playerAbilities = null;
             foreach (SkinnedMeshRenderer mesh in playerMeshes)
             {
-                StopCoroutine(LevelUpEffect(0.5f, 0.25f));
-                objectGlow.ResetGlow(mesh.material);    
+                objectGlow.ResetGlow(mesh.sharedMaterial);
             }
+            // objectGlow.ResetGlow(playerBody.material);
+            // objectGlow.ResetGlow(playerLeaf.material);
+            // objectGlow.ResetGlow(playerLHand.material);
+            // objectGlow.ResetGlow(playerRHand.material);
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267397568537240154}
   - component: {fileID: 970961592187009578}
-  - component: {fileID: 6063605685311294482}
+  - component: {fileID: 4210798778317012437}
   m_Layer: 0
   m_Name: Sunspot
   m_TagString: Untagged
@@ -57,7 +57,7 @@ CapsuleCollider:
   m_Height: 114.34
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6063605685311294482
+--- !u!114 &4210798778317012437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +70,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  chargeTime: 0
+  chargeTime: 3
+  objectGlow: {fileID: 0}
+  playerMeshes: []
 --- !u!1 &5935507855891878777
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,13 +9,15 @@ public class DragObject : MonoBehaviour
     //public float zMultiplier = 1f;
     bool isColliding = false;
     bool mouseDragging = false;
-    void OnMouseDown(){
 
-        //scale the final z position
-        mouseZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
-        //Store offset = gameobject world pos - mouse world pos
-        mouseOffset = gameObject.transform.position - GetMouseWorldPos();
-        
+
+    void OnMouseDown(){
+        if(PlayerAbilities.canGrab){
+            //scale the final z position
+            mouseZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
+            //Store offset = gameobject world pos - mouse world pos
+            mouseOffset = gameObject.transform.position - GetMouseWorldPos();
+        }
     }   
     
     private Vector3 GetMouseWorldPos(){
@@ -28,12 +30,13 @@ public class DragObject : MonoBehaviour
 
     }
     void OnMouseDrag(){
-        mouseDragging = true;
-        if (!isColliding)
-        {
-            transform.position = GetMouseWorldPos() + mouseOffset; // + new Vector3(0,0,zMultiplier);
-        }
-        
+        if(PlayerAbilities.canGrab){
+            mouseDragging = true;
+            if (!isColliding)
+            {
+                transform.position = GetMouseWorldPos() + mouseOffset; // + new Vector3(0,0,zMultiplier);
+            }    
+        }    
     }
      private void OnCollisionEnter(Collision collision)
     {

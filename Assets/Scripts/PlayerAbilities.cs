@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    private int abilityLevel;
+    public int abilityLevel;
     private int previousLevel;
     public static bool canGlide;
     public static bool canGrab;
+    public GameObject[] stems;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,12 +31,19 @@ public class PlayerAbilities : MonoBehaviour
             case 0: {
                 canGlide = false;
                 canGrab = false;
+                stems[1].SetActive(false);
+                stems[2].SetActive(false);
+                stems[0].SetActive(true);    
             }break;
             case 1: {
                 canGlide = true;
+                stems[0].SetActive(false);
+                stems[1].SetActive(true);
             }break;
             case 2: {
-                canGrab = false;
+                canGrab = true;
+                stems[1].SetActive(false);
+                stems[2].SetActive(true);
             }break;
         }
     }
