@@ -8798,6 +8798,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Seed
       objectReference: {fileID: 0}
+    - target: {fileID: 1882388370220050962, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
+    - target: {fileID: 2077513690641278911, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
     - target: {fileID: 2509408844151339104, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_Convex
       value: 1
@@ -8806,6 +8814,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Seed
       objectReference: {fileID: 0}
+    - target: {fileID: 5160355790490399535, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
     - target: {fileID: 6067201746147365480, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_TagString
       value: Seed
@@ -8870,6 +8882,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7354105949836439362, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
     - target: {fileID: 7617530107212457122, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_Name
       value: SpecialTree
@@ -8886,6 +8902,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8219975152433098168, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
     - target: {fileID: 8573758195040588255, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_Convex
       value: 1
