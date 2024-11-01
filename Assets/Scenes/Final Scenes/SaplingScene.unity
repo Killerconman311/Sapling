@@ -9911,6 +9911,7 @@ MonoBehaviour:
   - {fileID: -2026923997122089331, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
   - {fileID: -3128010102732516597, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
   - {fileID: 9079204437263306956, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
+  - {fileID: 5445189087127122105, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
   transitionTime: 1
   mixer: {fileID: 24100000, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
 --- !u!4 &1726519839 stripped

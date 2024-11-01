@@ -69,6 +69,7 @@ public class CamTransistion : MonoBehaviour
         menuCam.Priority = highPriority;
         yield return new WaitForSeconds(pauseDelay);
         pauseUI.SetActive(true);
+        AudioMixing.instance.TransitionToSnapshots(new int[] { 1 }, new float[] { 1.0f });
     }
 
     private IEnumerator UnpauseTheGame()
@@ -78,6 +79,7 @@ public class CamTransistion : MonoBehaviour
         menuCam.Priority = lowPriority;
         yield return new WaitForSeconds(unpauseDelay);
         moveScript.enabled = true;
+        AudioMixing.instance.TransitionToSnapshots(new int[] { 0 }, new float[] { 1.0f });
     }
     public void StartGame(){
         startCam.Priority = 0;
