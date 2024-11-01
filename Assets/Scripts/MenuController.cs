@@ -28,6 +28,7 @@ public class MenuController : MonoBehaviour
 
     public bool hasSeen = false;
     public bool secretUnlocked = false;
+    public int secretAmount = 0;
 
     public 
     // Start is called before the first frame update
@@ -47,7 +48,7 @@ public class MenuController : MonoBehaviour
         if(pauseUI.activeSelf){
             dialogue.SetActive(false);
         }
-        if(bounceCount >= 10){
+        if(bounceCount >= secretAmount){
             secretUnlocked = true;
             SecretUnlocked();
         }
