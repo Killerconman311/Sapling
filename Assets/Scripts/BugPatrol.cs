@@ -18,6 +18,7 @@ public class BugPatrol : MonoBehaviour
     public float lookSpeed = 5f; // Movement speed
 
     private Transform currentTarget;
+    public float intialTimer = 5;
     private float timer = 5;
 
     void Start()
@@ -49,7 +50,7 @@ public class BugPatrol : MonoBehaviour
         if (timer <= 0)
         {
             SetTargetIndexRandom();
-            timer = 5;
+            timer = intialTimer;
         }
 
         // Smoothly rotate towards the current target

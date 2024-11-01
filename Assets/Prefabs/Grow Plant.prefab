@@ -322,5 +322,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65ba58f3d0d62749af4740d95c9a2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Press E to plant charged seed.
+  text: Hold E to plant charged seed.
   dialogue: {fileID: 0}

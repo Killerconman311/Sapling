@@ -756,7 +756,7 @@ GameObject:
   - component: {fileID: 3499237688297997962}
   - component: {fileID: 3782794712677392481}
   - component: {fileID: 958339810934144718}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CaveRock (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -755,6 +755,7 @@ MonoBehaviour:
   targetIndex: 0
   moveSpeed: 5
   lookSpeed: 5
+  intialTimer: 5
 --- !u!95 &1986993662739570880
 Animator:
   serializedVersion: 5
@@ -765,7 +766,7 @@ Animator:
   m_GameObject: {fileID: 2010804423377556936}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a69b50e4564cbed47b1b7a4efcca6f61, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
