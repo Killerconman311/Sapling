@@ -30,7 +30,8 @@ public class GrowPlant : MonoBehaviour
     {
         if(canGrow && shouldGrow){
             Grow();
-            Destroy(seed);
+            glowController.DisableGlow(seed.GetComponent<Renderer>().material, 0.1f);
+            //Destroy(seed);
         }
         if(Input.GetKey(KeyCode.E)){
             shouldGrow = true;
