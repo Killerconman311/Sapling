@@ -6,7 +6,7 @@ public class ObjectGlow : MonoBehaviour
 {
     float glowLevel = 0f;
     Material material;
-    bool changingGlow = false;
+    public bool changingGlow = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,18 +16,14 @@ public class ObjectGlow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(changingGlow){
-            material.SetFloat("_Shades", glowLevel);
-        }
+
     }
 
     public void EnableGlow(Material target, float glowSpeed){
-        material = target;
-        StartCoroutine( ChangeGlow( 1f, -30f, glowSpeed ) );
+        StartCoroutine( ChangeGlow( -40f, glowSpeed, target ) );
     }
     public void DisableGlow(Material target, float glowSpeed){
-        material = target;
-        StartCoroutine( ChangeGlow( -30f, 1f, glowSpeed ) );
+        StartCoroutine( ChangeGlow( -0.5f, glowSpeed, target) );
     }
     public void ResetGlow(Material target){
         material = target;
@@ -37,14 +33,16 @@ public class ObjectGlow : MonoBehaviour
         material = target;
         material.SetFloat("_Shades", glow);
     }
-    IEnumerator ChangeGlow( float v_start, float v_end, float duration )
+    IEnumerator ChangeGlow( float v_end, float duration, Material target )
     {
+        float v_start = target.GetFloat("_Shades");
         changingGlow = true;
         float elapsed = 0.0f;
         while (elapsed < duration )
         {
             glowLevel = Mathf.Lerp( v_start, v_end, elapsed / duration );
             elapsed += Time.deltaTime;
+            target.SetFloat("_Shades", glowLevel);
             yield return null;
         }
         glowLevel = v_end;

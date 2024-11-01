@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18911458d5117ae44b60f6452a2022d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changingGlow: 0
 --- !u!4 &111038998
 Transform:
   m_ObjectHideFlags: 0
@@ -1223,7 +1224,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182718236}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1723,6 +1724,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -34.362
       objectReference: {fileID: 0}
+    - target: {fileID: 5500253765019678860, guid: e494aa92a350fed4690051584379ef47, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5701748478261523466, guid: e494aa92a350fed4690051584379ef47, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.88
@@ -1738,6 +1743,10 @@ PrefabInstance:
     - target: {fileID: 7214078963543610881, guid: e494aa92a350fed4690051584379ef47, type: 3}
       propertyPath: moveSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080285953639798249, guid: e494aa92a350fed4690051584379ef47, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2399,7 +2408,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554902856}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -5055,6 +5064,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grow Plant
       objectReference: {fileID: 0}
+    - target: {fileID: 4417582963215540508, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318757761629753754, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 1500160191}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: plant
       value: 
@@ -6657,6 +6674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35b767fb7f46e5e4390ae507fd5bdf2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glowController: {fileID: 0}
 --- !u!1 &1264149481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7867,6 +7885,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -34.362
       objectReference: {fileID: 0}
+    - target: {fileID: 5500253765019678860, guid: e494aa92a350fed4690051584379ef47, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7214078963543610881, guid: e494aa92a350fed4690051584379ef47, type: 3}
       propertyPath: lookSpeed
       value: 15
@@ -7874,6 +7896,10 @@ PrefabInstance:
     - target: {fileID: 7214078963543610881, guid: e494aa92a350fed4690051584379ef47, type: 3}
       propertyPath: moveSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8080285953639798249, guid: e494aa92a350fed4690051584379ef47, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8449,6 +8475,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 706871591}
     m_Modifications:
+    - target: {fileID: 1431963821995490420, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431963821995490420, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431963821995490420, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.87
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431963821995490420, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2473982694077950623, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: m_LocalScale.x
       value: 12.5
@@ -8509,6 +8551,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grow Plant
       objectReference: {fileID: 0}
+    - target: {fileID: 5318757761629753754, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: text
+      value: Press E with charged seed in range of the mushroom.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318757761629753754, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 1500160191}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: plant
       value: 
@@ -8544,7 +8594,7 @@ PrefabInstance:
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: glowController
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 111038996}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8794,6 +8844,10 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1515285685758282501, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: glowController
+      value: 
+      objectReference: {fileID: 111038997}
     - target: {fileID: 1857257282778626140, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_TagString
       value: Seed
@@ -8810,6 +8864,14 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3035056928245613816, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: glowController
+      value: 
+      objectReference: {fileID: 111038997}
+    - target: {fileID: 3238436578850338832, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: glowController
+      value: 
+      objectReference: {fileID: 111038997}
     - target: {fileID: 4399740597719387784, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_TagString
       value: Seed
@@ -8818,6 +8880,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9d53319bb7e7e7b4ca1ee8f5c882e6ae, type: 2}
+    - target: {fileID: 5278717678225462486, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: glowController
+      value: 
+      objectReference: {fileID: 111038997}
+    - target: {fileID: 5725165882187046805, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
+      propertyPath: glowController
+      value: 
+      objectReference: {fileID: 111038997}
     - target: {fileID: 6067201746147365480, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       propertyPath: m_TagString
       value: Seed

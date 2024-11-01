@@ -9,10 +9,27 @@ public class DragObject : MonoBehaviour
     //public float zMultiplier = 1f;
     bool isColliding = false;
     bool mouseDragging = false;
+    bool isCharged = false;
+    bool charging = false;
 
+    [SerializeField]
+    private ObjectGlow glowController;
+
+    Material mat;
+
+    void Awake(){
+        mat = GetComponent<Renderer>().material;
+    }
+    void Update(){
+        if(!charging && !isCharged){
+            glowController.DisableGlow(mat, 3f);
+        }
+    }
 
     void OnMouseDown(){
         if(PlayerAbilities.canGrab){
+            charging = true;
+            glowController.EnableGlow(mat, 3f);
             //scale the final z position
             mouseZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
             //Store offset = gameobject world pos - mouse world pos
@@ -52,6 +69,10 @@ public class DragObject : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if(!glowController.changingGlow){
+            isCharged = true;
+        }
+        charging = false;
         mouseDragging = false;
         isColliding = false;
     }
