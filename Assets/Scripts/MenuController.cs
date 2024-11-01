@@ -39,7 +39,6 @@ public class MenuController : MonoBehaviour
         masterSlider.value = 1f;
         musicSlider.value = 0.3339037f;
         sfxSlider.value = 1.75f;
-        bounceCount = 9;
     }
 
     // Update is called once per frame

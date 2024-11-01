@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Final Scenes/SaplingScene.unity
     guid: 5a248cde64e05334b9116e0ed3e386a1
+  - enabled: 1
+    path: Assets/Scenes/Final Scenes/EndScene.unity
+    guid: cd545a9b58864d14daa0670afd3d4408
   m_configObjects: {}
