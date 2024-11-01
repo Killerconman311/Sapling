@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class MenuController : MonoBehaviour
 {
@@ -12,12 +13,21 @@ public class MenuController : MonoBehaviour
     public Button startButton;
     public GameObject pauseUI;
     public GameObject dialogue;
+    public GameObject secretDialogue;
     private PlayerMovement moveScript;
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private Slider masterSlider;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject godToggle;
 
+    public static int bounceCount;
+
+    public static bool isGod;
+
+    public bool hasSeen = false;
+    public bool secretUnlocked = false;
 
     public 
     // Start is called before the first frame update
@@ -29,6 +39,7 @@ public class MenuController : MonoBehaviour
         masterSlider.value = 1f;
         musicSlider.value = 0.3339037f;
         sfxSlider.value = 1.75f;
+        bounceCount = 9;
     }
 
     // Update is called once per frame
@@ -36,6 +47,10 @@ public class MenuController : MonoBehaviour
     {
         if(pauseUI.activeSelf){
             dialogue.SetActive(false);
+        }
+        if(bounceCount >= 10){
+            secretUnlocked = true;
+            SecretUnlocked();
         }
     }
     public void StartGame(){
@@ -59,6 +74,20 @@ public class MenuController : MonoBehaviour
     }public void ChangeSFXVolume(float volume){
         mixer.SetFloat("SFX Volume", Mathf.Log10(volume) * 20);
     }
-
-    
+    public void OptionToggle(bool enabled){
+        optionsMenu.SetActive(enabled);
+        if(secretUnlocked){
+            godToggle.SetActive(enabled);
+        }
+    }
+    public void SecretUnlocked(){
+        if(!hasSeen){
+            secretDialogue.GetComponentInChildren<TextMeshProUGUI>().text = "Your options have changed.";
+            secretDialogue.SetActive(true);
+        }
+    }
+    public void CloseSecret(){
+        hasSeen = true;
+        secretDialogue.SetActive(false);
+    }
 }

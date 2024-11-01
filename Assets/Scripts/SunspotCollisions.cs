@@ -32,7 +32,7 @@ public class SunspotCollisions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Leveled Up: "+leveledUp);
+        //Debug.Log("Leveled Up: "+leveledUp);
         if(leveledUp){
             if (!soundPlayed)
             {

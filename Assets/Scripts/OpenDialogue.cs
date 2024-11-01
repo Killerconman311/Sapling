@@ -20,13 +20,17 @@ public class OpenDialogue : MonoBehaviour
     {
         
     }
+    public void ShowDialogue(){
+        dialogue.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        dialogue.SetActive(true);
+    }
     void OnTriggerEnter(Collider other){
         if(other.gameObject.CompareTag("Player")){
-            dialogue.GetComponentInChildren<TextMeshProUGUI>().text = text;
-            dialogue.SetActive(true);
+            ShowDialogue();
         }
     }
     void OnTriggerExit(Collider other){
 
     }
+
 }

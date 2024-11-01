@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectGlow : MonoBehaviour
 {
     float glowLevel = 0f;
     Material material;
     public bool changingGlow = false;
+
+    [SerializeField]private SkinnedMeshRenderer[] playerMeshes;
+    public GameObject player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,5 +52,21 @@ public class ObjectGlow : MonoBehaviour
         }
         glowLevel = v_end;
         changingGlow = false;
+    }
+    public void BecomeGod(Toggle toggle){
+        
+        bool isGod = toggle.isOn;
+        Debug.Log("IsGod: " + isGod);
+        if(isGod){
+            foreach(SkinnedMeshRenderer mesh in playerMeshes){
+                Material target = mesh.material;
+                SetGlow(target, 0f);
+            }
+        }else{
+            foreach(SkinnedMeshRenderer mesh in playerMeshes){
+                Material target = mesh.material;
+                SetGlow(target, -0.5f);
+            }
+        }
     }
 }

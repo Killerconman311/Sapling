@@ -21,6 +21,7 @@ public class BugTrampoline : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             PlayerMovement.playerGravity = gravity;
             other.gameObject.GetComponent<PlayerMovement>().Jump(bounceForce);
+            MenuController.bounceCount++;
         }
     }
 }

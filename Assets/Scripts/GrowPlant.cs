@@ -33,7 +33,7 @@ public class GrowPlant : MonoBehaviour
             glowController.GetComponent<ObjectGlow>().DisableGlow(seed.GetComponent<Renderer>().material, 0.1f);
             //Destroy(seed);
         }
-        if(Input.GetKeyDown(KeyCode.E)){
+        if(Input.GetKey(KeyCode.E)){
             shouldGrow = true;
         }else{
             shouldGrow = false;
