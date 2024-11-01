@@ -19,11 +19,14 @@ public class SunspotCollisions : MonoBehaviour
     public SkinnedMeshRenderer playerBulb;
     public SkinnedMeshRenderer[] playerMeshes;
     private bool leveledUp = false;
+    private AudioSource audioSource;
+    private bool soundPlayed = false;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Sappy");
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,6 +34,11 @@ public class SunspotCollisions : MonoBehaviour
     {
         Debug.Log("Leveled Up: "+leveledUp);
         if(leveledUp){
+            if (!soundPlayed)
+            {
+                audioSource.PlayOneShot(audioSource.clip);
+                soundPlayed = true;
+            }
             StopCoroutine(LevelUpEffect(0.5f, 0.25f));
         }
         if(playerIsColliding && !leveledUp){
@@ -80,6 +88,7 @@ public class SunspotCollisions : MonoBehaviour
             playerAbilities = player.GetComponent<PlayerAbilities>();
             if(playerAbilities.abilityLevel != level){
                 leveledUp = false;
+                soundPlayed = false;
             }
             if(!leveledUp){
                 StartCoroutine(LevelUpEffect(0.5f, 0.25f));
