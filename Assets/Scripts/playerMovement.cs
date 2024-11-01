@@ -11,8 +11,14 @@ public class PlayerMovement : MonoBehaviour
     public GameObject glider;
 
     [Header("Movement Variables")]
-    float moveSpeed = 10f; 
+    [SerializeField]
+    float moveSpeed = 10f;
+    [SerializeField]
+    float sprintMultiplier = 2.5f; 
+    [SerializeField]
     float jumpForce = 15f; 
+    [SerializeField]
+    float sprintJumpMultiplier = 2.5f; 
     public static float playerGravity;  
     public LayerMask groundLayer; 
 
@@ -34,8 +40,15 @@ public class PlayerMovement : MonoBehaviour
     private float timeInAir; 
     private Animator animator;
 
+    [Header("Audio Variables")]
+    private AudioSource audioSource;
+    public AudioClip stepSound;
+    [SerializeField] private float strideLength;
+
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();
         coll = GetComponent<CapsuleCollider>();
         animHandler = GetComponentInChildren<CharacterAnimations>();
@@ -49,11 +62,11 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("isGrounded: " + isGrounded);
         //Debug.Log("rb.velocity.y: " + rb.velocity.y);
         GetInput();
-        if(cameraRelativeInput.magnitude > 0){
-            MovePlayer();
-        }else{
-            animator.SetBool("isMoving", false);
-        }
+        // if(cameraRelativeInput.magnitude > 0){
+        //     //MovePlayer();
+        // }else{
+        //     animator.SetBool("isMoving", false);
+        // }
         
         CheckGroundStatus();
         if (isGrounded)
@@ -113,12 +126,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            moveSpeed = 20f;
-            jumpForce = 25f;
+            moveSpeed *= sprintMultiplier;
+            jumpForce *= sprintJumpMultiplier;
         }
         if(Input.GetKeyUp(KeyCode.LeftShift)){
-            moveSpeed = 10f;
-            jumpForce = 15f;
+            moveSpeed /= sprintMultiplier;
+            jumpForce /= sprintJumpMultiplier;
         }
         //HandleAnimations();
     }
@@ -130,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        MovePlayer();
         ApplyGravity();
     }
 
@@ -145,6 +159,10 @@ public class PlayerMovement : MonoBehaviour
         {
             inputMagnitude /= 2;
         }
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        {
+            inputMagnitude *= 2;
+        }
 
         animator.SetFloat("inputMagnitude", inputMagnitude, 0.05f, Time.deltaTime);
         // Get input from WASD/Arrow keys
@@ -152,23 +170,36 @@ public class PlayerMovement : MonoBehaviour
         verticalInput = Input.GetAxis("Vertical");
 
         // Create movement vector based on input
-        movementInput = new Vector3(horizontalInput, 0f, verticalInput);
-        cameraRelativeInput = ConvertToCameraSpace(movementInput) * moveSpeed;
+        movementInput = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        cameraRelativeInput = ConvertToCameraSpace(movementInput);
     }
 
     private void MovePlayer()
     {
         animator.SetBool("isMoving", true);
         // Move player in the direction of input
-        Vector3 movement = cameraRelativeInput * Time.deltaTime;
-        rb.MovePosition(rb.position + movement);
+        Vector3 movement = cameraRelativeInput * moveSpeed * Time.fixedDeltaTime;
+        movement.y = rb.velocity.y;
+        //rb.MovePosition(rb.position + movement);
+        rb.velocity = movement;
         // Rotate the player to face movement direction
         if (cameraRelativeInput != Vector3.zero)
         {
             animator.SetBool("isMoving", true);
 
             Quaternion targetRotation = Quaternion.LookRotation(cameraRelativeInput);
-            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime * moveSpeed);
+            rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, Time.deltaTime * 10f);
+
+            // If the character has moved and the audio is not currently playing
+            if (isGrounded && !audioSource.isPlaying)
+            {
+                // Randomly change the playback speed a small amount
+                audioSource.pitch = Random.Range(0.8f, 1.2f);
+                // Randomly change the volume a small amount
+                audioSource.volume = Random.Range(0.4f, 1f);
+                // Play the step sound
+                audioSource.PlayOneShot(stepSound);
+            }
         }
         else
         {
