@@ -134,6 +134,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: End Screen
       objectReference: {fileID: 0}
+    - target: {fileID: 2975239608864134848, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: timeToFade
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975239608864134848, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: timeToChangeScene
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5554887258758188085, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7060930022878275056, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
       propertyPath: m_Pivot.x
       value: 0

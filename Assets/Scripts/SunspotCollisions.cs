@@ -59,28 +59,30 @@ public class SunspotCollisions : MonoBehaviour
     }
     IEnumerator LevelUpEffect( float oscilationRate, float glowSpeed )
     {
-        while(playerIsColliding && !leveledUp){
-            //Debug.Log("Level Up Started");
-            foreach (SkinnedMeshRenderer mesh in playerMeshes)
-            {
-                objectGlow.SetGlow(mesh.sharedMaterial, -40f);
+        if(!objectGlow.godEnabled){
+            while(playerIsColliding && !leveledUp){
+                //Debug.Log("Level Up Started");
+                foreach (SkinnedMeshRenderer mesh in playerMeshes)
+                {
+                    objectGlow.SetGlow(mesh.sharedMaterial, -40f);
+                }
+                    // objectGlow.SetGlow(playerBody.material, -40f);
+                    // objectGlow.SetGlow(playerLeaf.material, -40f);
+                    // objectGlow.SetGlow(playerLHand.material, -40f);
+                    // objectGlow.SetGlow(playerRHand.material, -40f);
+                yield return new WaitForSeconds( oscilationRate );
+                foreach (SkinnedMeshRenderer mesh in playerMeshes)
+                {
+                    objectGlow.SetGlow(mesh.sharedMaterial, -0.5f);
+                }
+                    // objectGlow.SetGlow(playerBody.material, -0.5f);
+                    // objectGlow.SetGlow(playerLeaf.material, -0.5f);
+                    // objectGlow.SetGlow(playerLHand.material, -0.5f);
+                    // objectGlow.SetGlow(playerRHand.material, -0.5f);
+                yield return new WaitForSeconds( oscilationRate );
             }
-                // objectGlow.SetGlow(playerBody.material, -40f);
-                // objectGlow.SetGlow(playerLeaf.material, -40f);
-                // objectGlow.SetGlow(playerLHand.material, -40f);
-                // objectGlow.SetGlow(playerRHand.material, -40f);
-            yield return new WaitForSeconds( oscilationRate );
-            foreach (SkinnedMeshRenderer mesh in playerMeshes)
-            {
-                objectGlow.SetGlow(mesh.sharedMaterial, -0.5f);
-            }
-                // objectGlow.SetGlow(playerBody.material, -0.5f);
-                // objectGlow.SetGlow(playerLeaf.material, -0.5f);
-                // objectGlow.SetGlow(playerLHand.material, -0.5f);
-                // objectGlow.SetGlow(playerRHand.material, -0.5f);
-            yield return new WaitForSeconds( oscilationRate );
+            //Debug.Log("Level Up Ended");
         }
-        //Debug.Log("Level Up Ended");
     }
     void OnTriggerEnter(Collider other){
         if(other.gameObject.CompareTag("Player")){
@@ -99,9 +101,11 @@ public class SunspotCollisions : MonoBehaviour
         if(other.gameObject.CompareTag("Player")){
             playerIsColliding = false;
             playerAbilities = null;
-            foreach (SkinnedMeshRenderer mesh in playerMeshes)
-            {
-                objectGlow.ResetGlow(mesh.sharedMaterial);
+            if(!objectGlow.godEnabled){
+                foreach (SkinnedMeshRenderer mesh in playerMeshes)
+                {
+                    objectGlow.ResetGlow(mesh.sharedMaterial);
+                }
             }
             // objectGlow.ResetGlow(playerBody.material);
             // objectGlow.ResetGlow(playerLeaf.material);

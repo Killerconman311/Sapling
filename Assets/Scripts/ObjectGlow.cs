@@ -9,9 +9,10 @@ public class ObjectGlow : MonoBehaviour
     Material material;
     public bool changingGlow = false;
 
-    [SerializeField]private SkinnedMeshRenderer[] playerMeshes;
+    [SerializeField] private SkinnedMeshRenderer[] playerMeshes;
+    [SerializeField] private Renderer[] gliderMeshes; 
     public GameObject player;
-    private bool godEnabled = false;
+    public bool godEnabled = false;
 
     // Start is called before the first frame update
     void Start()
@@ -66,9 +67,16 @@ public class ObjectGlow : MonoBehaviour
             foreach(SkinnedMeshRenderer mesh in playerMeshes){
                 Material target = mesh.material;
                 SetGlow(target, 0f);
+            }foreach(Renderer mesh in gliderMeshes){
+                Material target = mesh.material;
+                SetGlow(target, 0f);
             }
         }else{
             foreach(SkinnedMeshRenderer mesh in playerMeshes){
+                Material target = mesh.material;
+                SetGlow(target, -0.5f);
+            }
+            foreach(Renderer mesh in gliderMeshes){
                 Material target = mesh.material;
                 SetGlow(target, -0.5f);
             }
