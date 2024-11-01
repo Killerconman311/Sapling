@@ -28,7 +28,7 @@ public class MenuController : MonoBehaviour
 
     public bool hasSeen = false;
     public bool secretUnlocked = false;
-    public int secretAmount = 0;
+    public int secretAmount = 10;
 
     public 
     // Start is called before the first frame update
@@ -82,7 +82,7 @@ public class MenuController : MonoBehaviour
     }
     public void SecretUnlocked(){
         if(!hasSeen){
-            secretDialogue.GetComponentInChildren<TextMeshProUGUI>().text = "Your options have changed.";
+            secretDialogue.GetComponentInChildren<TextMeshProUGUI>().text = "Your options have changed. What have you done...";
             secretDialogue.SetActive(true);
         }
     }
