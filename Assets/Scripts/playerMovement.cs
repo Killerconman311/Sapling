@@ -13,10 +13,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Variables")]
     [SerializeField]
     float moveSpeed = 10f;
+    float defaultSpeed;
     [SerializeField]
     float sprintMultiplier = 2.5f; 
     [SerializeField]
     float jumpForce = 15f; 
+    float defaultJump;
     [SerializeField]
     float sprintJumpMultiplier = 2.5f; 
     public static float playerGravity;  
@@ -45,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip stepSound;
     [SerializeField] private float strideLength;
 
-
+    void Awake(){
+        defaultSpeed = moveSpeed;
+        defaultJump = jumpForce;
+    }
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -256,5 +261,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate camera-relative movement
         return vectorToRotate.z * forward + vectorToRotate.x * right;
+    }
+    void OnEnable(){
+        moveSpeed = defaultSpeed;
+        jumpForce = defaultJump;
     }
 }

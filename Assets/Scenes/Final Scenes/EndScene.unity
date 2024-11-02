@@ -142,6 +142,22 @@ PrefabInstance:
       propertyPath: timeToChangeScene
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4195231705119123243, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195231705119123243, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 906956954}
+    - target: {fileID: 4195231705119123243, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195231705119123243, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5554887258758188085, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -310,157 +326,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '_____________________________
-
-
-    Credits
-
-    ______________________________
-
-
-    DEVELOPMENT
-    TEAM
-
-    ______________________________
-
-
-
-    Kate Hillyard - Designer
-
-
-
-    Connor
-    Kindall - Developer
-
-
-
-    Alin Olson - Producer
-
-
-
-    Jaden Rogers - Artist
-
-
-
-    Jordan
-    Reed - Developer
-
-
-
-    ____________________________
-
-
-    Graphics
-
-
-    ____________________________
-
-
-    Sappy
-    model - Jaden Rogers
-
-
-    Mushroom model - Jaden Rogers
-
-
-    Tree model - Jaden
-    Rogers
-
-
-    Bridge model - Jaden Rogers
-
-
-    Rock models - Jaden Rogers
-
-
-    Amethyst
-    models - Jaden Rogers
-
-
-    Sappy animations - Jaden Rogers
-
-
-    Environment
-    - Jaden Rogers
-
-
-    Toon Shader - Jaden Rogers
-
-
-    Post Processing - Jaden
-    Rogers
-
-
-    Title UI - Alin Olson
-
-
-    Play UI - Alin Olson
-
-
-    Options UI
-    - Alin Olson
-
-
-    Secret UI - Alin Olson
-
-
-    Quit UI - Alin Olson
-
-
-    Sunspot
-    VFX - Jordan Reed
-
-
-    Ending VFX - Jordan Reed
-
-
-
-    ______________________________
-
-
-    Interactions
-
-
-    ______________________________
-
-
-    Seed
-    grab - Jordan Reed
-
-
-    so much other stuff needs to be added to the credits
-    but im out of time lol
-
-
-
-
-
-
-
-
-
-
-
-
-    Created for the Growth Game Jam
-
-
-    Held
-    by the Game Design and Development Club at Boise State University.
-
-
-    _____________________________
-
-
-    Thanks
-    for playing!
-
-    _____________________________
-
-
-
-
-    DID YOU FIND THE SECRET?'
+  m_text: "_____________________________\n\nCredits\n______________________________\n\nDEVELOPMENT
+    TEAM\n______________________________\n\n\nKate Hillyard - Designer\n\n\nConnor
+    Kindall - Developer\n\n\nAlin Olson - Producer\n\n\nJaden Rogers - Artist\n\n\nJordan
+    Reed - Developer\n\n\n____________________________\n\nGraphics & Design\n\n____________________________\n\n3D
+    Modeling & Animation - Jaden Rogers\n\n\nUser Interface - Alin Olson\n\n\nVisual
+    Identity - Jaden Rogers & Alin Olson\n\n\nVFX - Jordan Alba Reed\n\n\n____________________________\n\nInteractions
+    & Level Design\n\n____________________________\n\n\nStory/Theme - Kate Rogers
+    \n\n\nMechanics - Jordan Alba Reed & Connor Kindall\n\n\nMap Assets - Jaden Rogers\n\n\nGameplay
+    Loop - Alin Olson & Jordan Alba Reed\n\n\nMusic/SFX - Alin Olson\n\n______________________________\n\n\nCreated
+    for the Growth Game Jam\n\nHeld by the Game Design and Development Club at Boise
+    State University.\n\n_____________________________\n\nThanks for playing!\n_____________________________\n\n\n\nDID
+    YOU FIND THE SECRET?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -935,6 +812,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &906956954 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2975239608864134848, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
+  m_PrefabInstance: {fileID: 126387498}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5144a8ff8cfea2c46a05885f787d0066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1476498656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +903,74 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7060930022878275056, guid: c3a93c735ff21da4f81202a83412b26a, type: 3}
   m_PrefabInstance: {fileID: 126387498}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2019643534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019643537}
+  - component: {fileID: 2019643536}
+  - component: {fileID: 2019643535}
+  m_Layer: 0
+  m_Name: EventSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2019643535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019643534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &2019643536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019643534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!4 &2019643537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019643534}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1023,3 +979,4 @@ SceneRoots:
   - {fileID: 521352421}
   - {fileID: 126387498}
   - {fileID: 567402981}
+  - {fileID: 2019643537}

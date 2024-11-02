@@ -342,6 +342,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1325339440}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: growSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: newScale.x
       value: 613.5921
       objectReference: {fileID: 0}
@@ -3796,6 +3800,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 230098506}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: growSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: newScale.x
       value: 613.5921
       objectReference: {fileID: 0}
@@ -6376,9 +6384,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7132918860579978776, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1926374132}
-    - targetCorrespondingSourceObject: {fileID: 7132918860579978776, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 163665723}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1857257282778626140, guid: 3f8e6a08746698541be0e87006b91318, type: 3}
@@ -7565,6 +7570,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1302842404}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: growSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: newScale.x
       value: 613.5921
       objectReference: {fileID: 0}
@@ -7782,6 +7791,10 @@ PrefabInstance:
       propertyPath: plant
       value: 
       objectReference: {fileID: 111698673}
+    - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: growSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: newScale.x
       value: 4365.758
@@ -12279,7 +12292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5318757761629753754, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: text
-      value: Press E with charged seed in range of the mushroom.
+      value: Hold E with charged seed in range of the mushroom.
       objectReference: {fileID: 0}
     - target: {fileID: 5318757761629753754, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: dialogue
@@ -12289,6 +12302,10 @@ PrefabInstance:
       propertyPath: plant
       value: 
       objectReference: {fileID: 1286626517}
+    - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
+      propertyPath: growSpeed
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6512610207260438322, guid: a46ab0b2eb68ee546bf707ece6a4eed3, type: 3}
       propertyPath: newScale.x
       value: 1170.2
@@ -14236,6 +14253,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2420460564829979536}
     m_Modifications:
+    - target: {fileID: 223395494471459358, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 876981967077315009, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3053699155510046452, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 49.9
@@ -14275,6 +14300,14 @@ PrefabInstance:
     - target: {fileID: 3053699155510046452, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433245013638746974, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317179036154275063, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8638914174249822965, guid: a131ca7fb5486024fa80a527776c592d, type: 3}
       propertyPath: m_Name
@@ -15639,126 +15672,6 @@ Transform:
   - {fileID: 1505469146}
   m_Father: {fileID: 1212197776}
   m_LocalEulerAnglesHint: {x: 0, y: -9.15, z: 0}
---- !u!1 &1926374131
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1926374132}
-  - component: {fileID: 1926374136}
-  - component: {fileID: 1926374135}
-  - component: {fileID: 1926374134}
-  - component: {fileID: 1926374133}
-  m_Layer: 0
-  m_Name: Tutorial Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1926374132
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926374131}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.35456923, z: -0, w: 0.93502986}
-  m_LocalPosition: {x: 1.7, y: 0, z: 4}
-  m_LocalScale: {x: 20.223976, y: 20.283, z: 23.818954}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2104274439}
-  m_LocalEulerAnglesHint: {x: 0, y: 41.534, z: 0}
---- !u!65 &1926374133
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926374131}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1926374134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926374131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a65ba58f3d0d62749af4740d95c9a2ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: These seeds look important. Maybe they can give these mushrooms a boost?
-  dialogue: {fileID: 1500160191}
---- !u!23 &1926374135
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926374131}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1926374136
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1926374131}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1930772985
 GameObject:
   m_ObjectHideFlags: 0
@@ -19768,6 +19681,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2436958636598026168, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -298.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2436958636598026168, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 237.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2522191309531878590, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -19959,6 +19880,18 @@ PrefabInstance:
     - target: {fileID: 5360210053350808494, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417174835996911129, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -313.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417174835996911129, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 77.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417174835996911129, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 280.9
       objectReference: {fileID: 0}
     - target: {fileID: 5442450468117944057, guid: e96d8343111e5674ca8893ea3fd38a72, type: 3}
       propertyPath: m_Layer
@@ -23436,8 +23369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heightTest: 2
   glider: {fileID: 767339441}
-  moveSpeed: 501.9
-  sprintMultiplier: 4
+  moveSpeed: 750
+  sprintMultiplier: 1.5
   jumpForce: 25
   sprintJumpMultiplier: 1.25
   groundLayer:
@@ -25208,9 +25141,9 @@ AudioSource:
   m_GameObject: {fileID: 5501295887404635099}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: -3239122593381385660, guid: bf39b8d682f98e3428af6c27c5220e45, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 4c7ac814447a2a14c88849acee8d3992, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
